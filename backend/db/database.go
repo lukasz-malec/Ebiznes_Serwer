@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	_ "modernc.org/sqlite"
+	_ "modernc.org/sqlite" // registers sqlite driver for database/sql
 )
 
 var DB *sql.DB
