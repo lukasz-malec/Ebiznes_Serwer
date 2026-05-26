@@ -1,2 +1,3 @@
 # Ebiznes_Serwer
-Zadanie 7 z ebiznesu aplikacja serwerowa
+Zadanie 7 z ebiznesu aplikacja serwerowa</br>
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=lukasz-malec_Ebiznes_Klient&metric=bugs)](https://sonarcloud.io/summary/new_code?id=lukasz-malec_Ebiznes_Klient)
