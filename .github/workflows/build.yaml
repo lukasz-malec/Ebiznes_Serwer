@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -26,3 +28,27 @@ jobs:
 
       - name: Run tests
         run: go test ./...
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        working-directory: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "SonarCloud Results - ${{ github.repository }}"
+          body: |
+            Build: ${{ job.status }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+            
+            SonarCloud results: https://sonarcloud.io/project/overview?id=lukasz-malec_Ebiznes_Klient
+          to: ${{ secrets.MAIL_USERNAME }}
+          from: ${{ secrets.MAIL_USERNAME }}
